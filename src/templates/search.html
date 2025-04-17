@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+    Search Results / {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Search Results for: "{{ query }}"</h2>
+
+    {% if object_list %}
+        <div class="row">
+        {% for result in object_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ result.title }}</h5>
+                        <p class="card-text">{{ result.description|truncatechars:100 }}</p>
+                        <a href="#" class="btn btn-primary btn-sm">Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No results found. Try another keyword.</p>
+    {% endif %}
+</div>
+{% endblock %}

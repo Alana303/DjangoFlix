@@ -1,7 +1,5 @@
 {% load rating %}
 <div>
-    <a href="{{show.get_absolute_url }}">
-        {{ show }}
-        {% rating object=show rating_only=True %}
-    </a>
+    <a href="{{ show.get_absolute_url }}" class="btn btn-outline-light btn-sm">View Show</a>
+
 </div>

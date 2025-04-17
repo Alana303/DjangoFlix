@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+    Home / {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="jumbotron text-center bg-dark text-white p-5 rounded">
+        <h1 class="display-4">Welcome to DjangoFlix 🎬</h1>
+        <p class="lead">Stream your favorite shows and movies anytime, anywhere.</p>
+        <a class="btn btn-danger btn-lg" href="{% url 'playlist-list' %}" role="button">Browse Content</a>
+    </div>
+
+    <hr class="my-5">
+
+    <h2 class="mb-3">Featured Playlists</h2>
+    <div class="row">
+        {% for instance in object_list %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ instance.title }}</h5>
+                    <p class="card-text">{{ instance.description|truncatechars:100 }}</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm">Watch Now</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -2,34 +2,38 @@
 
 {% block head_title %}
     {% if title %}
-    {{ title }} /
+        {{ title }} /
     {% endif %}
     {{ block.super }}
 {% endblock %}
 
-
-
-
 {% block content %}
-
-{% if title %}
-    <h1>{{ title }}</h1>
-{% endif %}
-
-
-{% for instance in object_list %}
-<div>
-    <h3>{{ instance.title }} </h3>
-    <p>{{ instance.description }}</p>
-    {% if instance.is_movie %}
-        {% include 'playlists/cards/movie.html' with movie=instance %}
-    {% elif instance.is_show %}
-        {% include 'playlists/cards/show.html' with show=instance %}
-    {% else %}
+<div class="container">
+    {% if title %}
+        <h1 class="mb-4 text-light">{{ title }}</h1>
     {% endif %}
 
+    <div class="row">
+        {% for instance in object_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark text-white h-100 shadow-sm border-0">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ instance.title }}</h5>
+                        <p class="card-text text-muted">{{ instance.description|truncatewords:20 }}</p>
+
+                        <div class="mt-auto">
+                            {% if instance.is_movie %}
+                                {% include 'playlists/cards/movie.html' with movie=instance %}
+                            {% elif instance.is_show %}
+                                {% include 'playlists/cards/show.html' with show=instance %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-light">No playlists found.</p>
+        {% endfor %}
+    </div>
 </div>
-{% endfor %}
-
-
 {% endblock %}
